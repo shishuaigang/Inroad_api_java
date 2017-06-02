@@ -33,6 +33,7 @@ public class MainProcess {
         //登录,获取cookie
         GetCookie cookie = new GetCookie();
         String[] c = cookie.Cookie().split(";");
+        System.out.println(c[0]);
 
         //读取文件夹中的json数据,获取需要的参数
         Params p = new Params(this.PATH);
@@ -40,6 +41,7 @@ public class MainProcess {
         //获取api的数量
         int len = p.get_summary().size();
 
+        ArrayList<String> params = p.full_params();  //用于存放拼接的params
         ArrayList<String> full_url = p.full_url(); //从json中取出的url
         ArrayList<String> cn_name = p.get_summary(); //从json中取出的中文名字
 
@@ -47,14 +49,17 @@ public class MainProcess {
 
         ArrayList<String> res_time = new ArrayList<>(); //用于存放response time
         ArrayList<String> res_code = new ArrayList<>(); //用于存放response code
-        ArrayList<String> res_status = new ArrayList<>(); //用于存放response status
-        ArrayList<String> res_error_message = new ArrayList<>(); //用于存放response error message
-        ArrayList<String> res_error_message_for_db = new ArrayList<>(); //用于存放response error message('替换成#)
 
         //将中文名字中的'替换为#,方便写入数据库
         for (String CN_name : cn_name) {
             String sUmmary = CN_name.replace("'", "#"); //替换中文名字内的'
             cn_name_for_db.add(sUmmary);
+        }
+
+        for (int i = 0; i < len; i++) {
+            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 100, params.get(i), c[0]);
+            ConcurrentLinkedDeque temp = cc.concurrency();
+            System.out.println(temp);
         }
     }
 
@@ -78,21 +83,9 @@ public class MainProcess {
         fixedThreadPool.shutdown();
     }
 
-    public static void main(String args[]) throws Exception{
-        MainProcess m = new MainProcess("");
-        //m.tttt();
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5, new WorkThreadFactory());
-        Future<ArrayList> future = fixedThreadPool.submit(new Callable<ArrayList>(){
-            @Override
-            public ArrayList call() throws Exception {
-                SendPostRequest re = new SendPostRequest(
-                        "http://192.168.31.99:8088/API/Common/GetSysInfo", "APIVersion=999999999", "");
-                return new GetResponseAndCode(re.Post()).getRes();
-            }
+    public static void main(String args[]) throws Exception {
+        MainProcess m = new MainProcess("/Users/shishuaigang/Desktop/Auto_test/testjson");
+        m.mainProcess();
 
-        });
-
-        System.out.println(future.get());
-        fixedThreadPool.shutdown();
     }
 }

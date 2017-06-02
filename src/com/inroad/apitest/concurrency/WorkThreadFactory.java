@@ -18,7 +18,6 @@ public class WorkThreadFactory implements ThreadFactory {
         thread.setPriority(getThreadPriority());
         thread.setDaemon(isDaemon());
         return thread;
-
     }
 
     public int getThreadPriority() {
