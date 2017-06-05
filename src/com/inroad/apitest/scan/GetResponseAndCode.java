@@ -27,9 +27,9 @@ public class GetResponseAndCode {
         ArrayList<String> results = new ArrayList<>();
         int code;
         try {
-            code = this.connection.getResponseCode();
+            code = connection.getResponseCode();
             results.add(String.valueOf(code));  //返回code
-            in = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;

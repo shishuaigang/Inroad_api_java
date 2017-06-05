@@ -3,8 +3,12 @@ package com.inroad.apitest.concurrency;
 import com.inroad.apitest.common.SendPostRequest;
 import com.inroad.apitest.scan.GetResponseAndCode;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.*;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by shishuaigang on 2017/6/2.
@@ -45,15 +49,21 @@ public class ConcurrencyCore {
 
         ConcurrentLinkedDeque<ArrayList> cld = new ConcurrentLinkedDeque<>();
         //线程数设为8,cpu为双核4线程
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(8, new WorkThreadFactory());
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5, new WorkThreadFactory());
 
         //并发次数从输入框中获取
         for (int i = 0; i < concurrencyTimes; i++) {
             Future<ArrayList> future = fixedThreadPool.submit(new Callable<ArrayList>() {
                 @Override
                 public ArrayList call() throws Exception {
-                    SendPostRequest re = new SendPostRequest(getUrl(), getParam(), getCookie()); //发送post请求
-                    return new GetResponseAndCode(re.Post()).getRes(); //return，这样future才能get到
+                    long begin = System.nanoTime();
+                    SendPostRequest re = new SendPostRequest(getUrl(), getParam(), getCookie());
+                    HttpURLConnection fanhui = re.Post();//发送post请求，return conn
+                    //fanhui.getResponseCode();
+                    Long end = System.nanoTime();
+                    System.out.println((end-begin));
+                    ArrayList<String> response = new GetResponseAndCode(fanhui).getRes();
+                    return response; //return，这样future才能get
                 }
             });
             cld.add(future.get());

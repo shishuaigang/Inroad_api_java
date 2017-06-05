@@ -33,7 +33,6 @@ public class MainProcess {
         //登录,获取cookie
         GetCookie cookie = new GetCookie();
         String[] c = cookie.Cookie().split(";");
-        System.out.println(c[0]);
 
         //读取文件夹中的json数据,获取需要的参数
         Params p = new Params(this.PATH);
@@ -50,42 +49,23 @@ public class MainProcess {
         ArrayList<String> res_time = new ArrayList<>(); //用于存放response time
         ArrayList<String> res_code = new ArrayList<>(); //用于存放response code
 
-        //将中文名字中的'替换为#,方便写入数据库
-        for (String CN_name : cn_name) {
-            String sUmmary = CN_name.replace("'", "#"); //替换中文名字内的'
-            cn_name_for_db.add(sUmmary);
-        }
-
+        //每个API轮流并发
         for (int i = 0; i < len; i++) {
-            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 100, params.get(i), c[0]);
+            //将中文名字中的'替换为#,方便写入数据库
+            String sUmmary = cn_name.get(i).replace("'", "#"); //替换中文名字内的'
+            cn_name_for_db.add(sUmmary);
+            //api并发
+            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 10, params.get(i), c[0]);
             ConcurrentLinkedDeque temp = cc.concurrency();
-            System.out.println(temp);
+            for (Object ttttt:temp){
+            System.out.println(ttttt);}
         }
-    }
-
-    public void tttt() {
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5, new WorkThreadFactory());
-        for (int i = 0; i < 10; i++) {
-            fixedThreadPool.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        SendPostRequest re = new SendPostRequest(
-                                "http://192.168.31.99:8088/API/Common/GetSysInfo", "APIVersion=999999999", "");
-                        ArrayList t = new GetResponseAndCode(re.Post()).getRes();
-                        System.out.println(t);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-        fixedThreadPool.shutdown();
     }
 
     public static void main(String args[]) throws Exception {
         MainProcess m = new MainProcess("/Users/shishuaigang/Desktop/Auto_test/testjson");
         m.mainProcess();
+
 
     }
 }
