@@ -1,14 +1,12 @@
 package com.inroad.apitest.concurrency;
 
 import com.inroad.apitest.common.SendPostRequest;
-import com.inroad.apitest.scan.GetResponseAndCode;
 
 import java.net.HttpURLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.*;
 
-import static java.lang.Thread.sleep;
 
 /**
  * Created by shishuaigang on 2017/6/2.
@@ -49,20 +47,31 @@ public class ConcurrencyCore {
 
         ConcurrentLinkedDeque<ArrayList> cld = new ConcurrentLinkedDeque<>();
         //线程数设为8,cpu为双核4线程
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5, new WorkThreadFactory());
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(8, new WorkThreadFactory());
 
         //并发次数从输入框中获取
         for (int i = 0; i < concurrencyTimes; i++) {
             Future<ArrayList> future = fixedThreadPool.submit(new Callable<ArrayList>() {
                 @Override
                 public ArrayList call() throws Exception {
-                    long begin = System.nanoTime();
+                    long begin = System.nanoTime(); //请求发送前的时间戳
                     SendPostRequest re = new SendPostRequest(getUrl(), getParam(), getCookie());
                     HttpURLConnection fanhui = re.Post();//发送post请求，return conn
-                    //fanhui.getResponseCode();
-                    Long end = System.nanoTime();
-                    System.out.println((end-begin));
-                    ArrayList<String> response = new GetResponseAndCode(fanhui).getRes();
+                    Long end = System.nanoTime(); // return conn 后的时间戳
+                    //发送请求-服务器响应-接收完response所经历的时间(elapsed time)
+
+                    ArrayList<String> response = new ArrayList<>();
+
+                    int code = fanhui.getResponseCode();
+                    response.add(String.valueOf(code));
+
+                    String mes = fanhui.getResponseMessage();
+
+                    float elapsed = (float) (end - begin) / 1000000L;
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    String num = df.format(elapsed);
+                    response.add(num);
+
                     return response; //return，这样future才能get
                 }
             });

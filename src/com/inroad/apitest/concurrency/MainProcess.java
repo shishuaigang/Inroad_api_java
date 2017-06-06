@@ -2,8 +2,6 @@ package com.inroad.apitest.concurrency;
 
 import com.inroad.apitest.common.GetCookie;
 import com.inroad.apitest.common.Params;
-import com.inroad.apitest.common.SendPostRequest;
-import com.inroad.apitest.scan.GetResponseAndCode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,11 +52,13 @@ public class MainProcess {
             //将中文名字中的'替换为#,方便写入数据库
             String sUmmary = cn_name.get(i).replace("'", "#"); //替换中文名字内的'
             cn_name_for_db.add(sUmmary);
+
             //api并发
-            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 10, params.get(i), c[0]);
+            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 20, params.get(i), c[0]);
             ConcurrentLinkedDeque temp = cc.concurrency();
-            for (Object ttttt:temp){
-            System.out.println(ttttt);}
+            for (Object ttttt : temp) {
+                System.out.println(ttttt);
+            }
         }
     }
 
