@@ -54,13 +54,21 @@ public class MainProcess {
         // 发送请求，获取需要的结果
         try {
             for (int i = 0; i < len; i++) {
+                ArrayList<HttpURLConnection> RE = new ArrayList<>();
+                ArrayList<String> RE_TIME = new ArrayList<>();
+
                 SendPostRequest sp = new SendPostRequest(full_url.get(i), params.get(i), c[0]);
-                HttpURLConnection connection = sp.Post(); // return post connection
+                ElapsedTimeAndResponse REStime = new ElapsedTimeAndResponse(sp);
+
+                RE.addAll(REStime.calculateResTime().keySet());
+                RE_TIME.addAll(REStime.calculateResTime().values());
+
+                HttpURLConnection connection = RE.get(0); // return post connection
 
                 GetResponseCode code = new GetResponseCode(connection);
                 GetResponseMessage mes = new GetResponseMessage(connection);
 
-                resTimeAndStatusAndMessage t = new resTimeAndStatusAndMessage(mes.getResMessage());
+                resStatusAndErrormessage t = new resStatusAndErrormessage(mes.getResMessage());
 
                 String tsp;
                 if (t.responseErrorMessage() != null) {
@@ -69,7 +77,7 @@ public class MainProcess {
                     tsp = t.responseErrorMessage();
                 }
                 res_code.add(String.valueOf(code.getResCode()));
-                res_time.add(t.calculateResponseTime());
+                res_time.add(RE_TIME.get(0));
                 res_status.add(String.valueOf(t.responseStatus()));
                 res_error_message.add(t.responseErrorMessage());
                 res_error_message_for_db.add(tsp);
