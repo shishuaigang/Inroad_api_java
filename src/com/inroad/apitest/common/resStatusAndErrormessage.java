@@ -3,6 +3,7 @@ package com.inroad.apitest.common;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+
 /**
  * responseStatus方法返回response中的status的值
  * 如果遇到500返回，则返回-1
