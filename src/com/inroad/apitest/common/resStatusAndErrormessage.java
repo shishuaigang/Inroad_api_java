@@ -20,7 +20,6 @@ public class resStatusAndErrormessage {
         this.jsondata = Json;
     }
 
-
     // 读取response message中的status
     // 如果api返回成功,则读取status
     // 如果api返回失败,则返回-1
