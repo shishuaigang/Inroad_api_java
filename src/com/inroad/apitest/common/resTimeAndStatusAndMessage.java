@@ -29,7 +29,7 @@ public class resTimeAndStatusAndMessage {
     // 如果api返回成功,使用backtime与sendtime的差值,(相等,则显示<1ms)
     // 如果api返回失败,时间显示NA
     public String calculateResponseTime() {
-        JSONObject jsonob = JSON.parseObject(this.jsondata);
+        JSONObject jsonob = JSON.parseObject(jsondata);
 
         long sendmsec = 0;//毫秒
         long backmsec = 0;//毫秒
@@ -41,7 +41,6 @@ public class resTimeAndStatusAndMessage {
 
             if (st != null && bt != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss SSS");
-
                 try {
                     sendmsec = sdf.parse(st).getTime();
                     backmsec = sdf.parse(bt).getTime();
@@ -64,7 +63,7 @@ public class resTimeAndStatusAndMessage {
     // 如果api返回成功,则读取status
     // 如果api返回失败,则返回-1
     public int responseStatus() {
-        JSONObject jsonob = JSON.parseObject(this.jsondata);
+        JSONObject jsonob = JSON.parseObject(jsondata);
         int status;
         if (jsonob != null) {
             status = jsonob.getInteger("status");
@@ -78,7 +77,7 @@ public class resTimeAndStatusAndMessage {
     // 如果api返回成功,则读取message
     // 如果api返回失败,则返回"无正确的response,有可能为500错误,请检查"
     public String responseErrorMessage() {
-        JSONObject jsonob = JSON.parseObject(this.jsondata);
+        JSONObject jsonob = JSON.parseObject(jsondata);
         String message;
         if (jsonob != null) {
             message = JSON.parseObject(jsonob.getString("error")).getString("message");

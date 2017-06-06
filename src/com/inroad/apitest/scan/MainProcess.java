@@ -2,6 +2,7 @@ package com.inroad.apitest.scan;
 
 import com.inroad.apitest.common.*;
 
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,19 +55,20 @@ public class MainProcess {
         try {
             for (int i = 0; i < len; i++) {
                 SendPostRequest sp = new SendPostRequest(full_url.get(i), params.get(i), c[0]);
-                GetResponseAndCode res = new GetResponseAndCode(sp.Post());
+                HttpURLConnection connection = sp.Post(); // return post connection
 
-                ArrayList<String> codeAndResponse = res.getRes();
-                String code = codeAndResponse.get(0);
+                GetResponseCode code = new GetResponseCode(connection);
+                GetResponseMessage mes = new GetResponseMessage(connection);
 
-                resTimeAndStatusAndMessage t = new resTimeAndStatusAndMessage(codeAndResponse.get(1));
+                resTimeAndStatusAndMessage t = new resTimeAndStatusAndMessage(mes.getResMessage());
+
                 String tsp;
                 if (t.responseErrorMessage() != null) {
                     tsp = t.responseErrorMessage().replace("'", "#");//替换error message内的'
                 } else {
                     tsp = t.responseErrorMessage();
                 }
-                res_code.add(code);
+                res_code.add(String.valueOf(code.getResCode()));
                 res_time.add(t.calculateResponseTime());
                 res_status.add(String.valueOf(t.responseStatus()));
                 res_error_message.add(t.responseErrorMessage());
@@ -103,6 +105,5 @@ public class MainProcess {
         //发送邮件
         SendMail sm = new SendMail(foldername);
         sm.sendMail();
-
     }
 }
