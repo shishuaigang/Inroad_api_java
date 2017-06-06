@@ -152,7 +152,7 @@ public class Params {
     * 本方法返回拼接完成的request params，apiversion固定为9个9
     * 每次更新不必去理会apiversion的变更
     */
-    public ArrayList<String> full_params(){
+    public ArrayList<String> full_params() {
 
         ArrayList<String> full_param = new ArrayList<>();
         ArrayList<ArrayList> params = params();

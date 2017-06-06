@@ -13,10 +13,10 @@ public class ElapsedTimeAndResponse {
         this.request = request;
     }
 
-    public Map<HttpURLConnection,String> calculateResTime() {
+    public Map<HttpURLConnection, String> calculateResTime() {
         String num;
         HttpURLConnection conn;
-        Map<HttpURLConnection,String> m = new HashMap<>();
+        Map<HttpURLConnection, String> m = new HashMap<>();
 
         long begin = System.nanoTime(); //请求发送前的时间戳
         SendPostRequest re = request;
@@ -28,7 +28,7 @@ public class ElapsedTimeAndResponse {
         DecimalFormat df = new DecimalFormat("0.0");
         num = df.format(elapsed);
 
-        m.put(conn,num);
+        m.put(conn, num);
         return m;
     }
 }
