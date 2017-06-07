@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class WriteCsv {
+class WriteCsv {
     private ArrayList<String> url;
     private ArrayList<String> cn_name;
     private ArrayList<String> min;
@@ -16,7 +16,7 @@ public class WriteCsv {
     private ArrayList<String> average;
     private String folderName;
 
-    public WriteCsv(ArrayList<String> OriginalUrl, ArrayList<String> cn_name, ArrayList<String> min,
+    WriteCsv(ArrayList<String> OriginalUrl, ArrayList<String> cn_name, ArrayList<String> min,
                     ArrayList<String> max, ArrayList<String> average,
                     String folderName) {
         this.url = OriginalUrl;
@@ -27,7 +27,7 @@ public class WriteCsv {
         this.folderName = folderName; //时间戳命名的testresult文件夹
     }
 
-    public void writeCsv() {
+    void writeCsv() {
         try {
             File f = new File("/Users/shishuaigang/testResults/concurrency");
             if (!f.exists()) {

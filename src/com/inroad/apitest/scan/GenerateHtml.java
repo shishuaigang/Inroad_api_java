@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-public class GenerateHtml {
+class GenerateHtml {
 
     private String t;
     private ArrayList<String> url;
@@ -31,7 +31,7 @@ public class GenerateHtml {
         this.t_snap = t;
     }
 
-    public void createHtml() throws Exception {
+    void createHtml() throws Exception {
 
         String HtmlHeader = "<html>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +

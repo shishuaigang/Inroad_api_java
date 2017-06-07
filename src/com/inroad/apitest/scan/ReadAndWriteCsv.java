@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 写入csv,一行一行的写入
  */
 
-public class ReadAndWriteCsv {
+class ReadAndWriteCsv {
 
     private ArrayList<String> url;
     private ArrayList<String> cn_name;
@@ -22,7 +22,7 @@ public class ReadAndWriteCsv {
     private ArrayList<String> res_error_message;
     private String t_snap;
 
-    public ReadAndWriteCsv(ArrayList<String> OriginalUrl, ArrayList<String> cn_name, ArrayList<String> res_time,
+    ReadAndWriteCsv(ArrayList<String> OriginalUrl, ArrayList<String> cn_name, ArrayList<String> res_time,
                            ArrayList<String> res_code, ArrayList<String> res_status,
                            ArrayList<String> res_error_message, String t) {
         this.url = OriginalUrl;
@@ -34,7 +34,7 @@ public class ReadAndWriteCsv {
         this.t_snap = t; //时间戳命名的testresult文件夹
     }
 
-    public void writeCsv() {
+    void writeCsv() {
         try {
             File f = new File("/Users/shishuaigang/testResults/scan");
             if (!f.exists()) {
