@@ -65,8 +65,7 @@ public class MainProcess {
 
                 HttpURLConnection connection = RE.get(0); // return post connection
 
-                GetResponseCode code = new GetResponseCode(connection);
-                GetResponseMessage mes = new GetResponseMessage(connection);
+                GetResponseDetail mes = new GetResponseDetail(connection);
 
                 resStatusAndErrormessage t = new resStatusAndErrormessage(mes.getResMessage());
 
@@ -76,7 +75,7 @@ public class MainProcess {
                 } else {
                     tsp = t.responseErrorMessage();
                 }
-                res_code.add(String.valueOf(code.getResCode()));
+                res_code.add(String.valueOf(connection.getResponseCode()));
                 res_time.add(RE_TIME.get(0));
                 res_status.add(String.valueOf(t.responseStatus()));
                 res_error_message.add(t.responseErrorMessage());

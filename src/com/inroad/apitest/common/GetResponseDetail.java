@@ -4,14 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 
 
-public class GetResponseMessage {
+public class GetResponseDetail {
 
     private HttpURLConnection connection;
 
-    public GetResponseMessage(HttpURLConnection conn) {
+    public GetResponseDetail(HttpURLConnection conn) {
         this.connection = conn;
     }
 
@@ -27,7 +26,7 @@ public class GetResponseMessage {
                 res_message = result;  //返回api的response message
             }
         } catch (IOException e) {
-            res_message = null;  //失败测返回null
+            res_message = null;  //失败则null
         } finally {
             try {
                 if (in != null) {
