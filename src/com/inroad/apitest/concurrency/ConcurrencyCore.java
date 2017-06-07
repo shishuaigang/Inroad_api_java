@@ -1,6 +1,7 @@
 package com.inroad.apitest.concurrency;
 
-import com.inroad.apitest.common.SendPostRequest;
+import com.inroad.apitest.common.*;
+import org.omg.CORBA.Object;
 
 import java.net.HttpURLConnection;
 import java.text.DecimalFormat;
@@ -45,34 +46,27 @@ public class ConcurrencyCore {
 
     public ConcurrentLinkedDeque concurrency() throws InterruptedException, ExecutionException {
 
-        ConcurrentLinkedDeque<ArrayList> cld = new ConcurrentLinkedDeque<>();
+        ConcurrentLinkedDeque<String> cld = new ConcurrentLinkedDeque<>();
         //线程数设为8,cpu为双核4线程
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(8, new WorkThreadFactory());
 
         //并发次数从输入框中获取
-        for (int i = 0; i < concurrencyTimes; i++) {
-            Future<ArrayList> future = fixedThreadPool.submit(new Callable<ArrayList>() {
+        for (int i = 0; i < getConcurrencyTimes(); i++) {
+            Future<String> future = fixedThreadPool.submit(new Callable<String>() {
                 @Override
-                public ArrayList call() throws Exception {
+                public String call() throws Exception {
+
                     long begin = System.nanoTime(); //请求发送前的时间戳
                     SendPostRequest re = new SendPostRequest(getUrl(), getParam(), getCookie());
                     HttpURLConnection fanhui = re.Post();//发送post请求，return conn
                     Long end = System.nanoTime(); // return conn 后的时间戳
-                    //发送请求-服务器响应-接收完response所经历的时间(elapsed time)
-
-                    ArrayList<String> response = new ArrayList<>();
-
-                    int code = fanhui.getResponseCode();
-                    response.add(String.valueOf(code));
-
-                    String mes = fanhui.getResponseMessage();
 
                     float elapsed = (float) (end - begin) / 1000000L;
                     DecimalFormat df = new DecimalFormat("0.0");
-                    String num = df.format(elapsed);
-                    response.add(num);
+                    //response.add(t);
+                    //发送请求-服务器响应-接收完response所经历的时间(elapsed time)
 
-                    return response; //return，这样future才能get
+                    return df.format(elapsed); //return，这样future才能get
                 }
             });
             cld.add(future.get());

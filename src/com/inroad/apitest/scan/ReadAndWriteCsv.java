@@ -36,14 +36,14 @@ public class ReadAndWriteCsv {
 
     public void writeCsv() {
         try {
-            File f = new File("/Users/shishuaigang/testResults");
+            File f = new File("/Users/shishuaigang/testResults/scan");
             if (!f.exists()) {
                 f.mkdir();
-                (new File("/Users/shishuaigang/testResults/" + t_snap)).mkdir();
+                (new File("/Users/shishuaigang/testResults/scan/" + t_snap)).mkdir();
             } else {
-                (new File("/Users/shishuaigang/testResults/" + t_snap)).mkdir();
+                (new File("/Users/shishuaigang/testResults/scan/" + t_snap)).mkdir();
             }
-            FileWriter writer = new FileWriter("/Users/shishuaigang/testResults/" + t_snap + "/result.csv");
+            FileWriter writer = new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.csv");
             CsvWriter csvWriter = new CsvWriter(writer, ',');
             String[] contents = {"API_URL", "API_Chinese_Name", "Response_Time", "Response_Code", "Status", "Error_Message"};//一行的方式写入
             csvWriter.writeRecord(contents);

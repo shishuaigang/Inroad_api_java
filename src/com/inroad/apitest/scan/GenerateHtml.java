@@ -64,7 +64,7 @@ public class GenerateHtml {
 
                 "        </tr>";
 
-        BufferedWriter info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/" + t_snap + "/result.html"));
+        BufferedWriter info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));
         info.write(HtmlHeader);
         info.write("<td align=\"center\">" + this.url.size() + "</td>");
         info.write("<td align=\"center\" bgcolor=\"#C1FFC1\">" + this.passrate.get(0) + "</td>");
