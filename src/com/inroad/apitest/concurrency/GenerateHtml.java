@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-/**
- * Created by shishuaigang on 2017/6/7.
- */
 public class GenerateHtml {
     private String testbegintime;
     private ArrayList<String> url;
@@ -53,9 +50,9 @@ public class GenerateHtml {
                     "<th align=\"center\" width=\"150\" bgcolor=\"#A4D3EE\">" + (i+1) + "</th>\n" +
                     "<th align=\"center\" width=\"150\" >" + url.get(i) + "</th>\n" +
                     "<th align=\"center\" width=\"150\" >" + cn_name.get(i) + "</th>\n" +
-                    "<th align=\"center\" width=\"150\" >" + min.get(i) + "</th>\n" +
-                    "<th align=\"center\" width=\"150\" >" + max.get(i) + "</th>\n" +
-                    "<th align=\"center\" width=\"150\" >" + average.get(i) + "</th>\n" +
+                    "<th align=\"center\" width=\"150\" >" + min.get(i)+  "ms</th>\n" +
+                    "<th align=\"center\" width=\"150\" >" + max.get(i) + "ms</th>\n" +
+                    "<th align=\"center\" width=\"150\" >" + average.get(i) + "ms</th>\n" +
                     "</tr>");
         }
         info.write("</table>");
