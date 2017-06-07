@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class GenerateHtml {
+class GenerateHtml {
     private String testbegintime;
     private ArrayList<String> url;
     private ArrayList<String> cn_name;
@@ -14,7 +14,7 @@ public class GenerateHtml {
     private String t_snap;
 
 
-    public GenerateHtml(String testbegintime, ArrayList<String> OriginalUrl, ArrayList<String> cn_name,
+    GenerateHtml(String testbegintime, ArrayList<String> OriginalUrl, ArrayList<String> cn_name,
                         ArrayList<String> min, ArrayList<String> max, ArrayList<String> average,
                         String t) {
         this.url = OriginalUrl;
@@ -26,7 +26,7 @@ public class GenerateHtml {
         this.t_snap = t;
     }
 
-    public void createHtml() throws Exception {
+    void createHtml() throws Exception {
         String HtmlHeader = "<html>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +
                 "<head>\n" +
