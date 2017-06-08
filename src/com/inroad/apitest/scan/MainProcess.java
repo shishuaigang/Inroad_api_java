@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class MainProcess {
 
+    private static String test_type= "scan";
     private String PATH;
 
     MainProcess(String jsonfolderPATH) {
@@ -110,7 +111,7 @@ public class MainProcess {
         }
 
         //发送邮件
-        SendMail sm = new SendMail(foldername);
+        SendMail sm = new SendMail(foldername,test_type);
         sm.sendMail();
     }
 }

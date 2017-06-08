@@ -1,7 +1,9 @@
 package com.inroad.apitest.concurrency;
 
+import com.inroad.apitest.common.DBoperation;
 import com.inroad.apitest.common.GetCookie;
 import com.inroad.apitest.common.Params;
+import com.inroad.apitest.common.SendMail;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -15,15 +17,16 @@ import java.util.concurrent.*;
  * 并发测试的流程
  */
 
-public class MainProcess {
+class MainProcess {
 
+    private static String test_type= "concurrency";
     private String PATH;
 
-    public MainProcess(String jsonfolderPATH) {
+    MainProcess(String jsonfolderPATH) {
         this.PATH = jsonfolderPATH;
     }
 
-    public void mainProcess() throws Exception {
+    void mainProcess() throws Exception {
         Date d = new Date();
         SimpleDateFormat bt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String begintime = bt.format(d);// 测试开始的时间
@@ -45,17 +48,12 @@ public class MainProcess {
         ArrayList<String> full_url = p.full_url(); //从json中取出的url
         ArrayList<String> cn_name = p.get_summary(); //从json中取出的中文名字
 
-        ArrayList<String> cn_name_for_db = new ArrayList<>(); //从json中取出的中文名字('替换成#)
-
         ArrayList<String> min_time = new ArrayList<>();
         ArrayList<String> max_time = new ArrayList<>();
         ArrayList<String> average_time = new ArrayList<>();
 
         //每个API轮流并发
         for (int i = 0; i < len; i++) {
-            //将中文名字中的'替换为#,方便写入数据库
-            String sUmmary = cn_name.get(i).replace("'", "#"); //替换中文名字内的'
-            cn_name_for_db.add(sUmmary);
             //api并发
             ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 100, params.get(i), c[0]);
             ConcurrentLinkedDeque temp = cc.concurrency();
@@ -73,8 +71,26 @@ public class MainProcess {
         }
         WriteCsv wcsv = new WriteCsv(url, cn_name, min_time, max_time, average_time, foldername);
         wcsv.writeCsv();
+
+        //生成testreport
         GenerateHtml GT = new GenerateHtml(begintime, url, cn_name, min_time, max_time, average_time, foldername);
         GT.createHtml();
+
+        //生成写入数据库的SQL语句
+        ArrayList<String> sql = new ArrayList<>();
+        for (int i = 0; i < len; i++) {
+            sql.add("insert into Inroad_Concurrency_Test(TestNo, API_URL, Min_Time, Max_Time, Average_time) values(" + foldername + ",'" + url.get(i) + "','" + min_time.get(i) + "','" +
+                    max_time.get(i) + "','" + average_time.get(i) + "')");
+        }
+        System.out.println(sql);
+        //执行SQL语句
+        for (String SQL : sql) {
+            DBoperation.executeUpdate(SQL);
+        }
+
+        //发送测试报告
+        SendMail sm = new SendMail(foldername,test_type);
+        sm.sendMail();
     }
 
     public static void main(String args[]) throws Exception {

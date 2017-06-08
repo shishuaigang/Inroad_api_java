@@ -33,7 +33,7 @@ class GenerateHtml {
                 "<title>Inroad API并发测试</title>\n" +
                 "</head>\n" +
                 "<body bgcolor=\"#F7F7F7\">\n" +
-                "<h1 align=\"center\">Inroad_API_Scan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3>开始时间: " + testbegintime + "</font></h1>\n" +
+                "<h1 align=\"center\">Inroad_API_Concurrency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3>开始时间: " + testbegintime + "</font></h1>\n" +
                 "<table style=\"margin-left:12.5%;\" width=\"75%\" align=\"left-side\" border=\"1\" cellspacing=\"0\">\n" +
                 "<tr>\n" +
                 "<th align=\"center\"  bgcolor=\"#A4D3EE\">序号</th>\n" +
