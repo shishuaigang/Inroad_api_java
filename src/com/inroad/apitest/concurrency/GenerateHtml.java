@@ -43,7 +43,13 @@ class GenerateHtml {
                 "<th align=\"center\"  bgcolor=\"#A4D3EE\">Max_Time</th>\n" +
                 "<th align=\"center\"  bgcolor=\"#A4D3EE\">Average_Time</th>\n" +
                 "</tr>";
-        BufferedWriter info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/concurrency/" + t_snap + "/result.html"));
+
+        BufferedWriter info;
+        if (System.getProperty("os.name").contains("Windows")) {
+            info = new BufferedWriter(new FileWriter("C:\\testResults\\concurrency\\" + t_snap + "\\result.html"));
+        } else {
+            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/concurrency/" + t_snap + "/result.html"));
+        }
         info.write(HtmlHeader);
         for (int i = 0; i < url.size(); i++) {
             info.write("<tr>\n" +

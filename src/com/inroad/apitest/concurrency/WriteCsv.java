@@ -28,15 +28,33 @@ class WriteCsv {
     }
 
     void writeCsv() {
+
+        String path;
+        String _path;
+        if (System.getProperty("os.name").contains("Windows")) {
+            path = "C:\\testResults\\concurrency";
+            _path = "C:\\testResults\\concurrency\\";
+        } else {
+            path = "/Users/shishuaigang/testResults/concurrency";
+            _path = "/Users/shishuaigang/testResults/concurrency/";
+        }
+
         try {
-            File f = new File("/Users/shishuaigang/testResults/concurrency");
+            File f = new File(path);
             if (!f.exists()) {
                 f.mkdir();
-                (new File("/Users/shishuaigang/testResults/concurrency/" + folderName)).mkdir();
+                (new File(_path + folderName)).mkdir();
             } else {
-                (new File("/Users/shishuaigang/testResults/concurrency/" + folderName)).mkdir();
+                (new File(_path + folderName)).mkdir();
             }
-            FileWriter writer = new FileWriter("/Users/shishuaigang/testResults/concurrency/" + folderName + "/result.csv");
+
+            FileWriter writer;
+            if (System.getProperty("os.name").contains("Windows")) {
+                writer = new FileWriter(_path + folderName + "\\result.csv");
+            } else {
+                writer = new FileWriter(_path + folderName + "/result.csv");
+            }
+
             CsvWriter csvWriter = new CsvWriter(writer, ',');
             String[] contents = {"API_URL", "API_Chinese_Name", "Min_Time", "Max_Time", "Average_Time"};//一行的方式写入
             csvWriter.writeRecord(contents);

@@ -48,9 +48,9 @@ public class DBoperation {
         try {
             if (conn != null) {
                 System.out.println("-------连接数据库成功--------");
-                Statement stmt = null;
+                Statement stmt;
                 stmt = conn.createStatement();
-                int result = 0;
+                int result;
                 if (stmt != null) {
                     result = stmt.executeUpdate(SQL);
                     if (result > 0) {
