@@ -43,17 +43,24 @@ public class ScanGUI {
                     @Override
                     public void run() {
                         String apiversion = jtf1.getText();
-                        String PATH = jtf2.getText();
-                        if (PATH.equals("") || apiversion.equals("")) {
+                        // 查询系统属性，windows的文件夹名字与类unix的不同，需要将\转义成\\
+                        String folderPATH;
+                        String path = jtf2.getText();
+                        if (System.getProperty("os.name").contains("Windows")) {
+                            folderPATH = path.replace("\\", "\\\\");
+                        } else {
+                            folderPATH = path;
+                        }
+
+                        if (path.equals("") || apiversion.equals("")) {
                             JOptionPane.showMessageDialog(null,
                                     "请输入正确的APIVersion和JSON文件夹地址");
                         } else {
-                            // String newPath = PATH.replace("\\", "\\\\"); //windows专用，linux注销掉这句话
                             try {
                                 Tipswindow mt = new Tipswindow();
                                 JFrame t = mt.tipswindow();
                                 t.setVisible(true);
-                                MainProcess N = new MainProcess(PATH);
+                                MainProcess N = new MainProcess(folderPATH);
                                 N.main();
                                 t.setVisible(false);
                             } catch (Exception e1) {

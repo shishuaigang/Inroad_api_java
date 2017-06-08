@@ -11,7 +11,7 @@ import javax.mail.internet.*;
 /**
  * 发送带html报告的附件
  */
-public class SendMail {
+class SendMail {
 
     //发件人邮箱和密码
     private static String EmailAccount = "zwtong@in-road.com";
@@ -22,11 +22,11 @@ public class SendMail {
     //private static String[] Receiver = {"sgshi@in-road.com"};
     private String folder_name;
 
-    public SendMail(String t) {
+    SendMail(String t) {
         this.folder_name = t;
     }
 
-    public void sendMail() throws Exception {
+    void sendMail() throws Exception {
         // 收件人列表
         String tt1 = "sgshi@in-road.com";
         //String tt2 = "jjxia@in-road.com";
@@ -71,7 +71,7 @@ public class SendMail {
     }
 
 
-    public static MimeMessage createMimeMessage(Session session, String sendMail, InternetAddress[] receiveMail, String t_snap) throws Exception {
+    private static MimeMessage createMimeMessage(Session session, String sendMail, InternetAddress[] receiveMail, String t_snap) throws Exception {
         /*创建一封邮件*/
         MimeMessage message = new MimeMessage(session);
 
@@ -93,7 +93,13 @@ public class SendMail {
 
         /*添加附件*/
         MimeBodyPart attach = new MimeBodyPart();
-        DataHandler dh = new DataHandler(new FileDataSource("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));  // 读取本地文件
+
+        DataHandler dh;
+        if (System.getProperty("os.name").contains("Windows")) {
+            dh = new DataHandler(new FileDataSource("C:\\testResults\\scan\\" + t_snap + "\\result.html"));
+        } else {
+            dh = new DataHandler(new FileDataSource("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));
+        }
         attach.setDataHandler(dh);                                             // 将附件数据添加到“节点”
         attach.setFileName(MimeUtility.encodeText(dh.getName()));
 

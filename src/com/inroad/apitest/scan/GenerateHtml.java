@@ -63,8 +63,12 @@ class GenerateHtml {
                 "        <td style=\"WORD-WRAP: break-word;word-break:break-all\" align=\"center\" bgcolor=\"#A4D3EE\">Error message</td>\n" +
 
                 "        </tr>";
-
-        BufferedWriter info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));
+        BufferedWriter info;
+        if (System.getProperty("os.name").contains("Windows")) {
+            info = new BufferedWriter(new FileWriter("C:\\testResults\\scan\\" + t_snap + "\\result.html"));
+        } else {
+            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));
+        }
         info.write(HtmlHeader);
         info.write("<td align=\"center\">" + this.url.size() + "</td>");
         info.write("<td align=\"center\" bgcolor=\"#C1FFC1\">" + this.passrate.get(0) + "</td>");
