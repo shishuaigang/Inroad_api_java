@@ -23,8 +23,8 @@ class ReadAndWriteCsv {
     private String t_snap;
 
     ReadAndWriteCsv(ArrayList<String> OriginalUrl, ArrayList<String> cn_name, ArrayList<String> res_time,
-                           ArrayList<String> res_code, ArrayList<String> res_status,
-                           ArrayList<String> res_error_message, String t) {
+                    ArrayList<String> res_code, ArrayList<String> res_status,
+                    ArrayList<String> res_error_message, String t) {
         this.url = OriginalUrl;
         this.cn_name = cn_name;
         this.res_time = res_time;
@@ -36,13 +36,17 @@ class ReadAndWriteCsv {
 
     void writeCsv() {
         try {
-            File f = new File("/Users/shishuaigang/testResults/scan");
+            File f = new File("/Users/shishuaigang/testResults/scan"); //linux用命令
+            // File f = new File("C:\\testResults\\scan"); windodws用命令
             if (!f.exists()) {
                 f.mkdir();
-                (new File("/Users/shishuaigang/testResults/scan/" + t_snap)).mkdir();
+                //    (new File("C:\\testResults\\scan\\" + t_snap)).mkdir(); //windodws用命令
+                (new File("/Users/shishuaigang/testResults/scan/" + t_snap)).mkdir();//linux用命令
             } else {
+                //    (new File("C:\\testResults\\scan\\" + t_snap)).mkdir(); //windodws用命令
                 (new File("/Users/shishuaigang/testResults/scan/" + t_snap)).mkdir();
             }
+            //FileWriter writer = new FileWriter("c:\\testResults\\scan\\" + t_snap + "\\result.csv");  //windodws用命令
             FileWriter writer = new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.csv");
             CsvWriter csvWriter = new CsvWriter(writer, ',');
             String[] contents = {"API_URL", "API_Chinese_Name", "Response_Time", "Response_Code", "Status", "Error_Message"};//一行的方式写入

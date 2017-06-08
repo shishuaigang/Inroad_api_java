@@ -48,6 +48,7 @@ public class ScanGUI {
                             JOptionPane.showMessageDialog(null,
                                     "请输入正确的APIVersion和JSON文件夹地址");
                         } else {
+                            // String newPath = PATH.replace("\\", "\\\\"); //windows专用，linux注销掉这句话
                             try {
                                 Tipswindow mt = new Tipswindow();
                                 JFrame t = mt.tipswindow();
