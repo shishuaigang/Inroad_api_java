@@ -1,7 +1,7 @@
 package com.inroad.apitest;
 
-import com.inroad.apitest.scan.ScanGUI;
-import com.inroad.apitest.strong.StrongGUI;
+import com.inroad.apitest.scan.*;
+import com.inroad.apitest.concurrency.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,8 @@ public class MainGUI {
         btn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "功能正在开发中");
+                ConcurrencyGUI concurrency = new ConcurrencyGUI();
+                concurrency.concurrencyGUI();
             }
         });
 
@@ -54,8 +55,7 @@ public class MainGUI {
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StrongGUI strong = new StrongGUI();
-                strong.strongGUI();
+                JOptionPane.showMessageDialog(null, "功能正在开发中");
             }
         });
 
