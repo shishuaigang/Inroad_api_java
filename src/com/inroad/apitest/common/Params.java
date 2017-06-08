@@ -162,7 +162,7 @@ public class Params {
             for (Object aPAram : pAram) {
                 ps.append(aPAram.toString());
             }
-            full_param.add(ps.toString() + "APIVersion=999999999");
+            full_param.add(ps.toString() + "APIVersion=999999999"); //apiversion调整至最大值
         }
         return full_param;
     }

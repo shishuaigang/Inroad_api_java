@@ -19,11 +19,13 @@ import java.util.concurrent.*;
 
 class MainProcess {
 
-    private static String test_type= "concurrency";
+    private static String test_type = "concurrency";
     private String PATH;
+    private int times;
 
-    MainProcess(String jsonfolderPATH) {
+    MainProcess(String jsonfolderPATH, int concurrency_times) {
         this.PATH = jsonfolderPATH;
+        this.times = concurrency_times;
     }
 
     void mainProcess() throws Exception {
@@ -55,7 +57,7 @@ class MainProcess {
         //每个API轮流并发
         for (int i = 0; i < len; i++) {
             //api并发
-            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), 100, params.get(i), c[0]);
+            ConcurrencyCore cc = new ConcurrencyCore(full_url.get(i), times, params.get(i), c[0]);
             ConcurrentLinkedDeque temp = cc.concurrency();
             ArrayList<Float> aTime = new ArrayList<>();
             for (Object EX : temp) {
@@ -89,12 +91,7 @@ class MainProcess {
         }
 
         //发送测试报告
-        SendMail sm = new SendMail(foldername,test_type);
+        SendMail sm = new SendMail(foldername, test_type);
         sm.sendMail();
-    }
-
-    public static void main(String args[]) throws Exception {
-        MainProcess m = new MainProcess("/Users/shishuaigang/Desktop/Auto_test/testjson");
-        m.mainProcess();
     }
 }
