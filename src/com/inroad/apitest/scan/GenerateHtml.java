@@ -65,9 +65,9 @@ class GenerateHtml {
                 "        </tr>";
         BufferedWriter info;
         if (System.getProperty("os.name").contains("Windows")) {
-            info = new BufferedWriter(new FileWriter("C:\\testResults\\scan\\" + t_snap + "\\result.html"));
+            info = new BufferedWriter(new FileWriter("C:\\testResults\\Inroad\\scan\\" + t_snap + "\\result.html"));
         } else {
-            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/scan/" + t_snap + "/result.html"));
+            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/Inroad/scan/" + t_snap + "/result.html"));
         }
         info.write(HtmlHeader);
         info.write("<td align=\"center\">" + this.url.size() + "</td>");

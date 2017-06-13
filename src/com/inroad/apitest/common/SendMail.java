@@ -14,8 +14,8 @@ import javax.mail.internet.*;
 public class SendMail {
 
     //发件人邮箱和密码
-    private static String EmailAccount = "zwtong@in-road.com";
-    private static String EmailPassword = "TZW123zxcvbnm";
+    private static String EmailAccount = "sgshi@in-road.com";
+    private static String EmailPassword = "Shishuaigang123!";
     //smtp服务器
     private static String EmailSMTPHost = "smtp.exmail.qq.com";
     //单个收件人邮箱
@@ -31,16 +31,16 @@ public class SendMail {
     public void sendMail() throws Exception {
         // 收件人列表
         String tt1 = "sgshi@in-road.com";
-        //String tt2 = "jjxia@in-road.com";
-        //String tt3 = "hhchen@in-road.com";
-        //String tt4 = "zwtong@in-road.com";
-        //String tt5 = "hchen@in-road.com";
+        String tt2 = "jjxia@in-road.com";
+        String tt3 = "hhchen@in-road.com";
+        String tt4 = "zwtong@in-road.com";
+        String tt5 = "hchen@in-road.com";
         InternetAddress to1 = new InternetAddress(tt1, "施帅钢", "UTF-8");
-        //InternetAddress to2 = new InternetAddress(tt2, "夏建俊", "UTF-8");
-        //InternetAddress to3 = new InternetAddress(tt3, "陈壕华", "UTF-8");
-        //InternetAddress to4 = new InternetAddress(tt4, "童忠伟", "UTF-8");
-        //InternetAddress to5 = new InternetAddress(tt5, "陈浩", "UTF-8");
-        InternetAddress[] toall = new InternetAddress[]{to1};
+        InternetAddress to2 = new InternetAddress(tt2, "夏建俊", "UTF-8");
+        InternetAddress to3 = new InternetAddress(tt3, "陈壕华", "UTF-8");
+        InternetAddress to4 = new InternetAddress(tt4, "童忠伟", "UTF-8");
+        InternetAddress to5 = new InternetAddress(tt5, "陈浩", "UTF-8");
+        InternetAddress[] toall = new InternetAddress[]{to1, to2, to3, to4, to5};
 
 
         Properties props = new Properties();                    // 参数配置
@@ -78,7 +78,7 @@ public class SendMail {
         MimeMessage message = new MimeMessage(session);
 
         /*设置发件人(邮箱地址，发件人昵称，昵称字符集)*/
-        message.setFrom(new InternetAddress(sendMail, "童忠伟", "UTF-8"));
+        message.setFrom(new InternetAddress(sendMail, "施帅钢", "UTF-8"));
 
         /*设置单个收件人(邮箱地址，收件人昵称，昵称字符集)*/
         //message.setRecipients(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "工之道研发TEAM", "UTF-8"));
@@ -98,9 +98,9 @@ public class SendMail {
 
         DataHandler dh;
         if (System.getProperty("os.name").contains("Windows")) {
-            dh = new DataHandler(new FileDataSource("C:\\testResults\\" + form + "\\" + t_snap + "\\result.html"));
+            dh = new DataHandler(new FileDataSource("C:\\testResults\\Inroad\\" + form + "\\" + t_snap + "\\result.html"));
         } else {
-            dh = new DataHandler(new FileDataSource("/Users/shishuaigang/testResults/" + form + "/" + t_snap + "/result.html"));
+            dh = new DataHandler(new FileDataSource("/Users/shishuaigang/testResults/Inroad/" + form + "/" + t_snap + "/result.html"));
         }
         attach.setDataHandler(dh);                                             // 将附件数据添加到“节点”
         attach.setFileName(MimeUtility.encodeText(dh.getName()));

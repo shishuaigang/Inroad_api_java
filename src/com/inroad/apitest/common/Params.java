@@ -169,11 +169,6 @@ public class Params {
 
     public static void main(String args[]) {
         Params p = new Params("/Users/shishuaigang/Desktop/Auto_test/testjson");
-        //System.out.println(p.read_section());
-        //System.out.println(p.get_section_value());
-        //for (int i = 0; i < p.get_apis().size(); i++) {
-        //    System.out.println(p.get_apis().get(i));
-        //}
         System.out.println(p.full_url());
         System.out.println(p.params().get(0));
         System.out.println(p.full_params().get(0));

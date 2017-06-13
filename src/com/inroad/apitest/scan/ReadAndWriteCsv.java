@@ -38,29 +38,36 @@ class ReadAndWriteCsv {
         //windows 类unix文件夹命令有别
         String path;
         String _path;
+        String _path_;
         if (System.getProperty("os.name").contains("Windows")) {
-            path = "C:\\testResults\\scan";
-            _path = "C:\\testResults\\scan\\";
+            path = "C:\\testResults\\Inroad";
+            _path = "C:\\testResults\\Inroad\\scan";
+            _path_ = "C:\\testResults\\Inroad\\scan\\";
         } else {
-            path = "/Users/shishuaigang/testResults/scan";
-            _path = "/Users/shishuaigang/testResults/scan/";
+            path = "/Users/shishuaigang/testResults/Inroad";
+            _path = "/Users/shishuaigang/testResults/Inroad/scan";
+            _path_ = "/Users/shishuaigang/testResults/Inroad/scan/";
         }
 
         try {
             File f = new File(path);
             if (!f.exists()) {
                 f.mkdir();
-                (new File(_path + t_snap)).mkdir();
+                File f1 = new File(_path);
+                if (!f1.exists()) {
+                    f1.mkdir();
+                }
+                (new File(_path_ + t_snap)).mkdir();
             } else {
-                (new File(_path + t_snap)).mkdir();
+                (new File(_path_ + t_snap)).mkdir();
             }
 
             //windows 类unix系统创建文件命令有别
             FileWriter writer;
             if (System.getProperty("os.name").contains("Windows")) {
-                writer = new FileWriter(_path + t_snap + "\\result.csv");
+                writer = new FileWriter(_path_ + t_snap + "\\result.csv");
             } else {
-                writer = new FileWriter(_path + t_snap + "/result.csv");
+                writer = new FileWriter(_path_ + t_snap + "/result.csv");
             }
 
             CsvWriter csvWriter = new CsvWriter(writer, ',');
