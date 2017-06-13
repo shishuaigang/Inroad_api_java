@@ -170,7 +170,8 @@ public class Params {
     public static void main(String args[]) {
         Params p = new Params("/Users/shishuaigang/Desktop/Auto_test/testjson");
         System.out.println(p.full_url());
-        System.out.println(p.params().get(0));
-        System.out.println(p.full_params().get(0));
+        System.out.println(p.params());
+        System.out.println(p.params().get(3));
+        System.out.println(p.full_params().get(3));
     }
 }

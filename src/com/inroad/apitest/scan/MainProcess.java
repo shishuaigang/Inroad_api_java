@@ -89,7 +89,7 @@ public class MainProcess {
         PassRate pr = new PassRate(len, res_code, res_status);
         ArrayList<String> passrate = pr.calculatePassrate(); //成功率数组
 
-        ReadAndWriteCsv csv = new ReadAndWriteCsv(url, cn_name, res_time, res_code, res_status, res_error_message, foldername);
+        WriteCsv csv = new WriteCsv(url, cn_name, res_time, res_code, res_status, res_error_message, foldername);
         csv.writeCsv();
 
         //生成test report

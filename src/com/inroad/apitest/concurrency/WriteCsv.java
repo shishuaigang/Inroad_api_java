@@ -44,16 +44,18 @@ class WriteCsv {
 
         //创建文件夹，一层一层创建
         try {
-            File fi = new File(path);
-            if (!fi.exists()) {
-                fi.mkdir();
-                File file = new File(_path);
-                if (!file.exists()) {
-                    file.mkdir();
-                }
-                (new File(_path_ + folderName)).mkdir();
-            } else {
-                (new File(_path_ + folderName)).mkdir();
+            File f1 = new File(path);
+            File f2 = new File(_path);
+            File f3 = new File(_path_ + folderName);
+            if(!f1.exists()){
+                f1.mkdir();
+                f2.mkdir();
+                f3.mkdir();
+            }else if(!f2.exists()){
+                f2.mkdir();
+                f3.mkdir();
+            }else {
+                f3.mkdir();
             }
 
             FileWriter writer;
