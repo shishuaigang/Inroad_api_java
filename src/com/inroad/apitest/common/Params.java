@@ -156,9 +156,9 @@ public class Params {
 
         ArrayList<String> full_param = new ArrayList<>();
         ArrayList<ArrayList> params = params();
-        StringBuilder ps = new StringBuilder();
 
         for (ArrayList pAram : params) {
+            StringBuilder ps = new StringBuilder();
             for (Object aPAram : pAram) {
                 ps.append(aPAram.toString());
             }
