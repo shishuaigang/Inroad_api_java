@@ -37,39 +37,21 @@ class WriteCsv {
     void writeCsv() {
         //windows 类unix文件夹命令有别
         String path;
-        String _path;
-        String _path_;
         if (System.getProperty("os.name").contains("Windows")) {
-            path = "C:\\testResults\\Inroad";
-            _path = "C:\\testResults\\Inroad\\scan";
-            _path_ = "C:\\testResults\\Inroad\\scan\\";
+            path = "C:\\testResults\\Inroad\\scan\\";
         } else {
-            path = "/Users/shishuaigang/testResults/Inroad";
-            _path = "/Users/shishuaigang/testResults/Inroad/scan";
-            _path_ = "/Users/shishuaigang/testResults/Inroad/scan/";
+            path = "/Users/shishuaigang/testResults/Inroad/scan/";
         }
 
         try {
-            File f1 = new File(path);
-            File f2 = new File(_path);
-            File f3 = new File(_path_ + t_snap);
-            if(!f1.exists()){
-                f1.mkdir();
-                f2.mkdir();
-                f3.mkdir();
-            }else if(!f2.exists()){
-                f2.mkdir();
-                f3.mkdir();
-            }else {
-                f3.mkdir();
-            }
+            new File(path + t_snap).mkdirs();
 
             //windows 类unix系统创建文件命令有别
             FileWriter writer;
             if (System.getProperty("os.name").contains("Windows")) {
-                writer = new FileWriter(_path_ + t_snap + "\\result.csv");
+                writer = new FileWriter(path + t_snap + "\\result.csv");
             } else {
-                writer = new FileWriter(_path_ + t_snap + "/result.csv");
+                writer = new FileWriter(path + t_snap + "/result.csv");
             }
 
             CsvWriter csvWriter = new CsvWriter(writer, ',');
