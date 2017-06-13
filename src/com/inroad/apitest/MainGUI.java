@@ -43,21 +43,13 @@ public class MainGUI {
         });
 
         // API 并发按钮
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ConcurrencyGUI concurrency = new ConcurrencyGUI();
-                concurrency.concurrencyGUI();
-            }
+        btn2.addActionListener(e -> {
+            ConcurrencyGUI concurrency = new ConcurrencyGUI();
+            concurrency.concurrencyGUI();
         });
 
         // API 容错按钮
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "功能正在开发中");
-            }
-        });
+        btn3.addActionListener(e -> JOptionPane.showMessageDialog(null, "功能正在开发中"));
 
         JLabel jLabel = new JLabel("Inroad API测试  Beta V1.0");
         jLabel.setHorizontalAlignment(SwingConstants.CENTER);
