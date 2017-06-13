@@ -46,9 +46,9 @@ class GenerateHtml {
 
         BufferedWriter info;
         if (System.getProperty("os.name").contains("Windows")) {
-            info = new BufferedWriter(new FileWriter("C:\\testResults\\concurrency\\" + t_snap + "\\result.html"));
+            info = new BufferedWriter(new FileWriter("C:\\testResults\\Inroad\\concurrency\\" + t_snap + "\\result.html"));
         } else {
-            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/concurrency/" + t_snap + "/result.html"));
+            info = new BufferedWriter(new FileWriter("/Users/shishuaigang/testResults/Inroad/concurrency/" + t_snap + "/result.html"));
         }
         info.write(HtmlHeader);
         for (int i = 0; i < url.size(); i++) {

@@ -31,28 +31,36 @@ class WriteCsv {
 
         String path;
         String _path;
+        String _path_;
         if (System.getProperty("os.name").contains("Windows")) {
-            path = "C:\\testResults\\concurrency";
-            _path = "C:\\testResults\\concurrency\\";
+            path = "C:\\testResults\\Inroad";
+            _path = "C:\\testResults\\Inroad\\concurrency";
+            _path_ = "C:\\testResults\\Inroad\\concurrency\\";
         } else {
-            path = "/Users/shishuaigang/testResults/concurrency";
-            _path = "/Users/shishuaigang/testResults/concurrency/";
+            path = "/Users/shishuaigang/testResults/Inroad";
+            _path = "/Users/shishuaigang/testResults/Inroad/concurrency";
+            _path_ = "/Users/shishuaigang/testResults/Inroad/concurrency/";
         }
 
+        //创建文件夹，一层一层创建
         try {
-            File f = new File(path);
-            if (!f.exists()) {
-                f.mkdir();
-                (new File(_path + folderName)).mkdir();
+            File fi = new File(path);
+            if (!fi.exists()) {
+                fi.mkdir();
+                File file = new File(_path);
+                if (!file.exists()) {
+                    file.mkdir();
+                }
+                (new File(_path_ + folderName)).mkdir();
             } else {
-                (new File(_path + folderName)).mkdir();
+                (new File(_path_ + folderName)).mkdir();
             }
 
             FileWriter writer;
             if (System.getProperty("os.name").contains("Windows")) {
-                writer = new FileWriter(_path + folderName + "\\result.csv");
+                writer = new FileWriter(_path_ + folderName + "\\result.csv");
             } else {
-                writer = new FileWriter(_path + folderName + "/result.csv");
+                writer = new FileWriter(_path_ + folderName + "/result.csv");
             }
 
             CsvWriter csvWriter = new CsvWriter(writer, ',');
