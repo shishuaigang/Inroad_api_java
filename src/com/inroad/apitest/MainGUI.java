@@ -34,12 +34,16 @@ public class MainGUI {
         //btn1.setFont(f);
 
         //API 遍历按钮
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ScanGUI scan = new ScanGUI();
-                scan.scanGUI();
-            }
+//        btn1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                ScanGUI scan = new ScanGUI();
+//                scan.scanGUI();
+//            }
+//        });
+        btn1.addActionListener(e -> {
+            ScanGUI scan = new ScanGUI();
+            scan.scanGUI();
         });
 
         // API 并发按钮
