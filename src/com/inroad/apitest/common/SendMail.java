@@ -31,16 +31,16 @@ public class SendMail {
     public void sendMail() throws Exception {
         // 收件人列表
         String tt1 = "sgshi@in-road.com";
-        //String tt2 = "jjxia@in-road.com";
-        //String tt3 = "hhchen@in-road.com";
+        String tt2 = "jjxia@in-road.com";
+        String tt3 = "hhchen@in-road.com";
         //String tt4 = "zwtong@in-road.com";
-        //String tt5 = "hchen@in-road.com";
+        String tt5 = "hchen@in-road.com";
         InternetAddress to1 = new InternetAddress(tt1, "施帅钢", "UTF-8");
-        //InternetAddress to2 = new InternetAddress(tt2, "夏建俊", "UTF-8");
-        //InternetAddress to3 = new InternetAddress(tt3, "陈壕华", "UTF-8");
+        InternetAddress to2 = new InternetAddress(tt2, "夏建俊", "UTF-8");
+        InternetAddress to3 = new InternetAddress(tt3, "陈壕华", "UTF-8");
         //InternetAddress to4 = new InternetAddress(tt4, "童忠伟", "UTF-8");
-        //InternetAddress to5 = new InternetAddress(tt5, "陈浩", "UTF-8");
-        InternetAddress[] toall = new InternetAddress[]{to1};
+        InternetAddress to5 = new InternetAddress(tt5, "陈浩", "UTF-8");
+        InternetAddress[] toall = new InternetAddress[]{to1, to2, to3, to5};
 
 
         Properties props = new Properties();                    // 参数配置

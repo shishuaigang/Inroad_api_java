@@ -7,19 +7,19 @@ import java.util.ArrayList;
  * 计算成功率，200&1为pass，其余为fail
  */
 
-public class PassRate {
+class PassRate {
 
     private int len;
     private ArrayList<String> res_code;
     private ArrayList<String> res_status;
 
-    public PassRate(int len, ArrayList<String> res_code, ArrayList<String> res_status) {
+    PassRate(int len, ArrayList<String> res_code, ArrayList<String> res_status) {
         this.len = len;
         this.res_code = res_code;
         this.res_status = res_status;
     }
 
-    public ArrayList<String> calculatePassrate() throws Exception {
+    ArrayList<String> calculatePassrate() throws Exception {
 
         int success_api = 0;
         int fail_api = 0;
@@ -29,6 +29,8 @@ public class PassRate {
         if (this.len != 0) {
             for (int i = 0; i < this.len; i++) {
                 if (Integer.valueOf(res_code.get(i)) == 200 && Integer.valueOf(res_status.get(i)) == 1) {
+                    success_api++;
+                } else if (Integer.valueOf(res_code.get(i)) == 302) {
                     success_api++;
                 } else {
                     fail_api++;

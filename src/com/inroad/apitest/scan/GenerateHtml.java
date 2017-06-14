@@ -89,6 +89,10 @@ class GenerateHtml {
                 info.write("<td align=\"center\" bgcolor=\"#C1FFC1\">" + 200 + "</td>");
                 info.write("<td align=\"center\" bgcolor=\"red\">" + 0 + "</td>");
                 info.write("<td style=\"word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\" align=\"center\">" + this.res_error_message.get(i) + "</td>");
+            } else if (Integer.valueOf(this.res_code.get(i)) == 302) {
+                info.write("<td align=\"center\" bgcolor=\"yellow\">" + 302 + "</td>");
+                info.write("<td align=\"center\" bgcolor=\"yellow\">" + "" + "</td>");
+                info.write("<td style=\"word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\" align=\"center\">" + this.res_error_message.get(i) + "</td>");
             } else if (Integer.valueOf(this.res_code.get(i)) == 500) {
                 info.write("<td align=\"center\" bgcolor=\"purple\">" + 500 + "</td>");
                 info.write("<td align=\"center\" bgcolor=\"purple\">" + "" + "</td>");

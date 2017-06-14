@@ -24,9 +24,9 @@ public class resStatusAndErrormessage {
     // 如果api返回成功,则读取status
     // 如果api返回失败,则返回-1
     public int responseStatus() {
-        JSONObject jsonob = JSON.parseObject(jsondata);
         int status;
-        if (jsonob != null) {
+        if (jsondata.endsWith("}")) {
+            JSONObject jsonob = JSON.parseObject(jsondata);
             status = jsonob.getInteger("status");
         } else {
             status = -1;
@@ -38,12 +38,12 @@ public class resStatusAndErrormessage {
     // 如果api返回成功,则读取message
     // 如果api返回失败,则返回"无正确的response,有可能为500错误,请检查"
     public String responseErrorMessage() {
-        JSONObject jsonob = JSON.parseObject(jsondata);
         String message;
-        if (jsonob != null) {
+        if (jsondata.endsWith("}")) {
+            JSONObject jsonob = JSON.parseObject(jsondata);
             message = JSON.parseObject(jsonob.getString("error")).getString("message");
         } else {
-            message = "无正确的response,有可能为500错误,请检查";
+            message = jsondata;
         }
         return message;
     }

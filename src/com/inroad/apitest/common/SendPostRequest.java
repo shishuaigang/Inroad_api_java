@@ -55,6 +55,7 @@ public class SendPostRequest {
             // 设置是否向httpUrlConnection输出，因为这个是post请求，参数要放在 http正文内，因此需要设为true, 默认情况下是false;
             conn.setDoInput(true);
             conn.setRequestMethod("POST");    // 请求为POST
+            conn.setInstanceFollowRedirects(false); // 重定向设置为false，不去自动跳转
             // 设置通用的请求属性
             //conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
