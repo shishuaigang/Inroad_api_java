@@ -33,9 +33,9 @@ public class ConcurrencyGUI {
         JTextField jtf1 = new JTextField(15); //用于输入APIVersion
         JTextField jtf2 = new JTextField(15); //用于输入JSON文件夹地址
         JTextField jtf3 = new JTextField(15); //用于输入并发次数
-        JLabel jlb1 = new JLabel("     APIVersion:   ");
-        JLabel jlb2 = new JLabel(" JSON文件夹地址:");
-        JLabel jlb3 = new JLabel("      并发次数:      ");
+        JLabel jlb1 = new JLabel("        APIVersion:   ");
+        JLabel jlb2 = new JLabel("JSON文件夹地址:");
+        JLabel jlb3 = new JLabel("         并发次数:      ");
         jp1.add(jlb1);
         jp1.add(jtf1);
         jp2.add(jlb2);
@@ -45,45 +45,40 @@ public class ConcurrencyGUI {
 
         // 给button添加点击事件
         JButton jb = new JButton("开始测试"); //button名字
-        jb.addActionListener(new ActionListener() {
+        jb.addActionListener(e -> new Thread(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+            public void run() {
 
-                        String apiversion = jtf1.getText();
+                String apiversion = jtf1.getText();
 
-                        // 查询系统属性，windows的文件夹名字与类unix的不同，需要将\转义成\\
-                        String folderPATH;
-                        String path = jtf2.getText();
-                        if (System.getProperty("os.name").contains("Windows")) {
-                            folderPATH = path.replace("\\", "\\\\");
-                        } else {
-                            folderPATH = path;
-                        }
+                // 查询系统属性，windows的文件夹名字与类unix的不同，需要将\转义成\\
+                String folderPATH;
+                String path = jtf2.getText();
+                if (System.getProperty("os.name").contains("Windows")) {
+                    folderPATH = path.replace("\\", "\\\\");
+                } else {
+                    folderPATH = path;
+                }
 
-                        String concurrency_times = jtf3.getText();
+                String concurrency_times = jtf3.getText();
 
-                        if (path.equals("") || apiversion.equals("") || concurrency_times.equals("")) {
-                            JOptionPane.showMessageDialog(null,
-                                    "请输入正确的APIVersion,JSON文件夹地址和并发次数");
-                        } else {
-                            try {
-                                Tipswindow mt = new Tipswindow();
-                                JFrame t = mt.tipswindow();
-                                t.setVisible(true);
-                                MainProcess N = new MainProcess(folderPATH, Integer.valueOf(concurrency_times));
-                                N.mainProcess();
-                                t.setVisible(false);
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
-                        }
+                if (path.equals("") || apiversion.equals("") || concurrency_times.equals("")) {
+                    JOptionPane.showMessageDialog(null,
+                            "请输入正确的APIVersion,JSON文件夹地址和并发次数");
+                } else {
+                    try {
+                        Tipswindow mt = new Tipswindow();
+                        JFrame t = mt.tipswindow();
+                        t.setVisible(true);
+                        MainProcess N = new MainProcess(folderPATH, Integer.valueOf(concurrency_times));
+                        N.mainProcess();
+                        t.setVisible(false);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                }).start();
+                }
             }
-        });
+        }).start());
         jp4.add(jb);
 
         //Executor executor = Executors.newFixedThreadPool(10);

@@ -28,7 +28,7 @@ public class ScanGUI {
 
         JTextField jtf1 = new JTextField(15); //用于输入APIVersion
         JTextField jtf2 = new JTextField(15); //用于输入JSON文件夹地址
-        JLabel jlb1 = new JLabel("       APIVersion:");
+        JLabel jlb1 = new JLabel("           APIVersion:");
         JLabel jlb2 = new JLabel("JSON文件夹地址:");
         jp1.add(jlb1);
         jp1.add(jtf1);
@@ -36,41 +36,36 @@ public class ScanGUI {
         jp2.add(jtf2);
         // 给button添加点击事件
         JButton jb = new JButton("开始测试"); //button名字
-        jb.addActionListener(new ActionListener() {
+        jb.addActionListener(e -> new Thread(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String apiversion = jtf1.getText();
-                        // 查询系统属性，windows的文件夹名字与类unix的不同，需要将\转义成\\
-                        String folderPATH;
-                        String path = jtf2.getText();
-                        if (System.getProperty("os.name").contains("Windows")) {
-                            folderPATH = path.replace("\\", "\\\\");
-                        } else {
-                            folderPATH = path;
-                        }
+            public void run() {
+                String apiversion = jtf1.getText();
+                // 查询系统属性，windows的文件夹名字与类unix的不同，需要将\转义成\\
+                String folderPATH;
+                String path = jtf2.getText();
+                if (System.getProperty("os.name").contains("Windows")) {
+                    folderPATH = path.replace("\\", "\\\\");
+                } else {
+                    folderPATH = path;
+                }
 
-                        if (path.equals("") || apiversion.equals("")) {
-                            JOptionPane.showMessageDialog(null,
-                                    "请输入正确的APIVersion和JSON文件夹地址");
-                        } else {
-                            try {
-                                Tipswindow mt = new Tipswindow();
-                                JFrame t = mt.tipswindow();
-                                t.setVisible(true);
-                                MainProcess N = new MainProcess(folderPATH);
-                                N.main();
-                                t.setVisible(false);
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
-                        }
+                if (path.equals("") || apiversion.equals("")) {
+                    JOptionPane.showMessageDialog(null,
+                            "请输入正确的APIVersion和JSON文件夹地址");
+                } else {
+                    try {
+                        Tipswindow mt = new Tipswindow();
+                        JFrame t = mt.tipswindow();
+                        t.setVisible(true);
+                        MainProcess N = new MainProcess(folderPATH);
+                        N.main();
+                        t.setVisible(false);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                }).start();
+                }
             }
-        });
+        }).start());
         jp3.add(jb);
 
         //网格布局,不指定行数,列数为1
